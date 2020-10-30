@@ -1,1 +1,5 @@
-* My dotfiles
+#+TITLE: My personal configuration
+#+DESCRIPTION: Repository for my personal config
+
+* The window manager I use..
+  I use xmonad window manager completely written and configured in haskell
