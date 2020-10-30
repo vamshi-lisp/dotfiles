@@ -1,0 +1,57 @@
+
+
+module Custom.Keys where
+
+    -- Custom
+import Custom.MyPrompt
+import Custom.Variables
+
+    -- Base
+import XMonad
+import System.Exit
+--import qualified XMonad.StackSet as W
+
+    -- Hooks
+import XMonad.Hooks.ManageDocks (ToggleStruts(..))
+
+    -- Layout
+import XMonad.Layout.ToggleLayouts (ToggleLayout(..))
+
+    -- Prompt
+--import XMonad.Prompt
+--import XMonad.Prompt.Shell
+--import XMonad.Prompt.Window
+import XMonad.Prompt.XMonad
+--import XMonad.Prompt.Workspace
+--import XMonad.Prompt.ConfirmPrompt
+--import XMonad.Prompt.AppLauncher as AL
+
+    -- Actions
+import XMonad.Actions.WithAll
+import XMonad.Actions.SimpleDate
+import XMonad.Actions.TagWindows
+import qualified XMonad.Actions.Search as S
+--import qualified XMonad.Actions.TreeSelect as TS ( treeselectWorkspace )
+import XMonad.Actions.CycleWS
+--import XMonad.Actions.GridSelect
+--import XMonad.Actions.CopyWindow(copy)
+import XMonad.Actions.DynamicWorkspaces
+
+
+myKeys' :: [(String,X())]
+myKeys' = [  
+  ("restart xmonad" ,spawn "xmonad --recompile ; xmonad --restart")
+      , ("toggle full screen (not taffybar)", sendMessage (Toggle "Full"))   
+      , ("kill one window" , {-addName "Kill One Window" $ -} kill)
+      , ("delete workspace" , {- addName "Kill WorkSpace" $ -} removeWorkspace )
+      , ("kill all windows",  killAll)                          
+      , ("M-w",{- addName "Main prompt" $ -} xmonadPromptC mainPrompt mainPromptXPConfig )
+      , ("M-e",  spawn "emacsclient -c -a '' --eval '(eshell)'")             
+      , ("terminal", {-addName "Konsole" $ -} spawn myTerminal )      
+      , ("next workspace",{- addName "next ws" $ -} nextWS)
+      , ("prev workspace", {- addName "prev ws" $ -} prevWS)
+ --     , ("M-2", addName "capture screen" $ spawn "scrot")
+      ,  ("shutdown system", spawn "poweroff")
+      ,  ("reboot system", spawn "reboot")
+      ,  ("exit xmonad wm", io $ exitWith ExitSuccess)
+      ]
