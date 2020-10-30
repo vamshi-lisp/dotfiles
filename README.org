@@ -6,4 +6,4 @@
 
    #+CAPTION: A random screenshot of my desktop
    #+NAME: xmonad
-   [[file:2020-10-30-161902_1920x1080_scrot.png]]
+   [[file:./2020-10-30-161902_1920x1080_scrot.png]]
