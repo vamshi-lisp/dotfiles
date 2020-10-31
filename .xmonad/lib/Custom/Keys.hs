@@ -41,9 +41,10 @@ import XMonad.Actions.DynamicWorkspaces
 import XMonad.Actions.DynamicProjects( switchProjectPrompt,  shiftToProjectPrompt )
 
 myKeys' :: [(String,X())]
-myKeys' = [  
-  ("restart xmonad" ,spawn "xmonad --recompile ; xmonad --restart")
+myKeys' = [  ("trivial" , spawn "")
+      , ("restart xmonad" ,spawn "xmonad --recompile ; xmonad --restart")
       , ("toggle full screen (not taffybar)", sendMessage (Toggle "Full"))   
+      , ("hide taffybar" ,  sendMessage ToggleStruts)
       , ("delete one window" , {-addName "Kill One Window" $ -} kill)
       , ("kill a workspace" , {- addName "Kill WorkSpace" $ -} removeWorkspace )
       , ("kill all windows",  killAll)                          

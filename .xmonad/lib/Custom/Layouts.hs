@@ -10,6 +10,8 @@ import XMonad.Layout.BinarySpacePartition (emptyBSP)
 import XMonad.Layout.NoBorders (noBorders)
 import XMonad.Layout.ToggleLayouts ( toggleLayouts)
 import XMonad.Layout.ResizableTile (ResizableTall(..))
+import XMonad.Layout.Spiral
+
     -- Hooks
 import XMonad.Hooks.ManageDocks (avoidStruts) --, docksEventHook, manageDocks,ToggleStruts(..))
 

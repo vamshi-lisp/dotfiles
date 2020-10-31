@@ -112,13 +112,13 @@ appStore query =  spawn (((myTerminal ++) " -e yay " ++ ) query)
 
 mainPromptXPConfig :: XPConfig
 mainPromptXPConfig = myXPConfig' {
-                       font              = "xft:LucidaMAC:size=21"
+                       font              = "xft:LucidaMAC:size=22"
                        , bgHLight        =   showWebColor blue --"#a4c20e"
                        , fgHLight           = "#ffffff"
                        , fgColor           = "#E0D8D8" --"#ffffff"--showWebColor cyan--"#ffffff"  
                        , promptBorderWidth = 6
-                     -- , position            = CenteredAt { xpCenterY = 0.05, xpWidth = 1 }
-                       , position           =  Bottom
+                      , position            = CenteredAt { xpCenterY = 0.2, xpWidth = 1 }
+                     --  , position           =  Bottom
                        , height            = 100
                        , alwaysHighlight     = True
                        , borderColor         =  showWebColor cyan --"#e0dfde"
