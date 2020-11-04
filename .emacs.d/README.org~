@@ -1,0 +1,305 @@
+#+TITLE: EMACS
+#+PROPERTY: header-args :tangle init.el
+#+DESCRIPTION: My emacs config file
+#+AUTHOR: Vamshi Krishna
+
+* Basic settings
+** Don't show up startup message
+#+begin_src emacs-lisp
+(setq inhibit-startup-message t)
+#+end_src
+** Disable scrollbar
+#+begin_src emacs-lisp
+(scroll-bar-mode -1)
+#+end_src
+** Disable toolbar
+#+begin_src emacs-lisp
+(tool-bar-mode -1)
+#+end_src
+** Disable tooltip
+#+begin_src emacs-lisp
+(tooltip-mode -1)
+#+end_src
+** Give some breathing room
+#+begin_src emacs-lisp
+(set-fringe-mode 10)
+#+end_src
+** Disable menu bar
+#+begin_src emacs-lisp
+(menu-bar-mode -1)
+#+end_src
+* Package management
+** Initialize package sources
+#+begin_src emacs-lisp
+(require 'package)
+
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")))
+
+(package-initialize)
+(unless package-archive-contents
+ (package-refresh-contents))
+#+end_src
+
+** Initialize use-package on non-Linux platforms
+#+begin_src emacs-lisp
+(unless (package-installed-p 'use-package)
+   (package-install 'use-package))
+#+end_src
+
+** use package
+#+begin_src emacs-lisp
+(require 'use-package)
+(setq use-package-always-ensure t)
+#+end_src
+
+* UI
+** Setup the visual bell
+#+begin_src emacs-lisp
+(setq visible-bell nil)
+#+end_src
+** Font
+#+begin_src emacs-lisp
+(set-face-attribute 'default nil :font "Fira Code Retina" :height 280)
+#+end_src
+
+** Theme
+#+begin_src emacs-lisp
+(load-theme 'vs-dark t)
+;;(use-package doom-themes
+;;  :init (load-theme 'doom-dark+ t))
+#+end_src
+** Mode line
+*** Atom one dark
+#+begin_src emacs-lisp
+(use-package smart-mode-line-atom-one-dark-theme
+  :ensure t)
+#+end_src
+*** Smart mode line
+#+BEGIN_SRC emacs-lisp
+(setq sml/no-confirm-load-theme t)
+(sml/setup)
+(setq sml/theme 'atom-one-dark)
+#+END_SRC
+** Line numbers
+*** Set global line numbers
+#+begin_src emacs-lisp
+(column-number-mode)
+(global-display-line-numbers-mode t)
+#+end_src
+*** Relative line numbers
+#+begin_src emacs-lisp
+(setq display-line-numbers-type 'relative)
+#+end_src
+** Disable line numbers for some modes
+#+begin_src emacs-lisp
+(dolist (mode '(org-mode-hook
+                term-mode-hook
+                shell-mode-hook
+                eshell-mode-hook))
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
+#+end_src
+** Rainbow delimiters(Parenthesis)
+#+begin_src emacs-lisp
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+#+end_src
+** Startup screen
+*** Basic
+#+BEGIN_SRC emacs-lisp
+(require 'dashboard)
+(dashboard-setup-startup-hook)
+(setq dashboard-set-navigator t)
+#+END_SRC
+*** Configuration
+**** Set the title
+#+BEGIN_SRC emacs-lisp
+(setq dashboard-banner-logo-title "Welcome to world of Emacs !!")
+#+END_SRC
+**** Set the banner
+#+BEGIN_SRC emacs-lisp
+(setq dashboard-startup-banner "/home/vamshi/.emacs.d/spacemacs.png")
+#+END_SRC
+
+**** Getting things center
+#+BEGIN_SRC emacs-lisp
+(setq dashboard-center-content t)
+#+END_SRC
+**** Enabling icons
+#+BEGIN_SRC emacs-lisp
+(setq dashboard-set-heading-icons t)
+(setq dashboard-set-file-icons t)
+#+END_SRC
+**** Custom widgets
+#+BEGIN_SRC emacs-lisp
+(defun dashboard-insert-custom (list-size)
+  (insert "Custom text"))
+(add-to-list 'dashboard-item-generators  '(custom . dashboard-insert-custom))
+(add-to-list 'dashboard-items '(custom) t)
+#+END_SRC
+**** Customize the buttons of the navigator
+#+BEGIN_SRC emacs-lisp
+(setq dashboard-navigator-buttons
+      `(;; line1
+        ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
+         "Homepage"
+         "Browse homepage"
+         (lambda (&rest _) (browse-url "homepage")))
+        ("★" "Star" "Show stars" (lambda (&rest _) (show-stars)) warning)
+        ("?" "~/.emacs.d/README.org" "?/h" #'show-help nil "<" ">"))
+         ;; line 2
+        ((,(all-the-icons-faicon "linkedin" :height 1.1 :v-adjust 0.0)
+          "Linkedin"
+          ""
+          (lambda (&rest _) (browse-url "homepage")))
+         ("⚑" nil "Show flags" (lambda (&rest _) (message "flag")) error))))
+
+#+END_SRC
+* Keybindings
+** Make ESC quit prompts
+#+begin_src emacs-lisp
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
+#+end_src
+
+** Ivy mode
+#+begin_src emacs-lisp
+(use-package ivy
+  :diminish
+  :bind (("C-s" . swiper)
+         :map ivy-minibuffer-map
+         ("TAB" . ivy-alt-done)
+         ("C-l" . ivy-alt-done)
+         ("C-j" . ivy-next-line)
+         ("C-k" . ivy-previous-line)
+         :map ivy-switch-buffer-map
+         ("C-k" . ivy-previous-line)
+         ("C-l" . ivy-done)
+         ("C-d" . ivy-switch-buffer-kill)
+         :map ivy-reverse-i-search-map
+         ("C-k" . ivy-previous-line)
+         ("C-d" . ivy-reverse-i-search-kill))
+  :config
+  (ivy-mode 1))
+#+end_src
+
+** Which key
+#+begin_src emacs-lisp
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config
+  (setq which-key-idle-delay 1))
+#+end_src
+** Ivy rich
+#+begin_src emacs-lisp
+(use-package ivy-rich
+  :init
+  (ivy-rich-mode 1))
+#+end_src
+** Set header keybindings
+#+begin_src emacs-lisp
+(use-package general
+  :config
+  (general-create-definer rune/leader-keys
+    :keymaps '(normal insert visual emacs)
+    :prefix "SPC"
+    :global-prefix "C-SPC")
+#+end_src
+** toggle themes
+#+begin_src emacs-lisp
+  (rune/leader-keys
+    "t"  '(:ignore t :which-key "toggles")
+    "tt" '(counsel-load-theme :which-key "choose theme")))
+#+end_src
+
+** Evil mode
+*** I
+#+begin_src emacs-lisp
+(use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil)
+  (setq evil-want-C-u-scroll t)
+  (setq evil-want-C-i-jump nil)
+  :config
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+#+end_src
+*** II
+Use visual line motions even outside of visual-line-mode buffers
+#+begin_src emacs-lisp
+(evil-global-set-key 'motion "j" 'evil-next-visual-line)
+(evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+#+end_src
+*** III
+Set normal mode as default for messages and dashboard
+#+begin_src emacs-lisp
+(evil-set-initial-state 'messages-buffer-mode 'normal)
+(evil-set-initial-state 'dashboard-mode 'normal))
+#+end_src
+*** IV
+#+begin_src emacs-lisp
+(use-package evil-collection
+  :after evil
+  :config
+  (evil-collection-init))
+#+end_src
+** Hydra
+*** Basic
+#+begin_src emacs-lisp
+(use-package hydra)
+#+end_src
+*** Scale text
+#+begin_src emacs-lisp
+(defhydra hydra-text-scale (:timeout 4)
+  "scale text"
+  ("j" text-scale-increase "in")
+  ("k" text-scale-decrease "out")
+  ("f" nil "finished" :exit t))
+
+(rune/leader-keys
+  "ts" '(hydra-text-scale/body :which-key "scale text"))
+#+end_src
+* Miscellaneous
+** Command log mode
+#+begin_src emacs-lisp
+(use-package command-log-mode)
+#+end_src
+
+** Helpers
+Extra help for emacs
+#+begin_src emacs-lisp
+(use-package helpful
+  :custom
+  (counsel-describe-function-function #'helpful-callable)
+  (counsel-describe-variable-function #'helpful-variable)
+  :bind
+  ([remap describe-function] . counsel-describe-function)
+  ([remap describe-command] . helpful-command)
+  ([remap describe-variable] . counsel-describe-variable)
+  ([remap describe-key] . helpful-key))
+#+end_src
+* Buffers
+#+begin_src emacs-lisp
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+         ("C-x b" . counsel-ibuffer)
+         ("C-x C-f" . counsel-find-file)
+         :map minibuffer-local-map
+         ("C-r" . 'counsel-minibuffer-history)))
+#+end_src
+* Centaur tabs
+#+BEGIN_SRC emacs-lisp
+(require 'centaur-tabs)
+(centaur-tabs-mode t)
+(global-set-key (kbd "C-<prior>")  'centaur-tabs-backward)
+(global-set-key (kbd "C-<next>") 'centaur-tabs-forward)
+(centaur-tabs-headline-match)
+(setq centaur-tabs-style "bar")
+(setq centaur-tabs-height 14)
+(setq centaur-tabs-set-icons t)
+(setq centaur-tabs-set-bar 'left)
+(centaur-tabs-change-fonts "lucida mac" 170)
+#+END_SRC
