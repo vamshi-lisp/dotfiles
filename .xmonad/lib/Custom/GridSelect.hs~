@@ -12,7 +12,7 @@ spawnSelected' :: [(String, String)] -> X ()
 spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
     where conf = def
                    { gs_cellheight   = 150
-                   , gs_cellwidth    = 310
+                   , gs_cellwidth    = 340
                    , gs_cellpadding  = 6
                    , gs_originFractX = 0.5
                    , gs_originFractY = 0.5
@@ -20,7 +20,7 @@ spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
                    }
 
 myList :: [(String,String)]
-myList = [("Mass Shutdown  dsdsds","clearine")
-         --,("Restart","reboot")
-         --,("Logout","xmonad --logout")
+myList = [("Shift+Return  Main menu","")
+         ,("Shift+Tab     Main menu","")
+         ,("Alt+Return    Exec terminal","")
          ]

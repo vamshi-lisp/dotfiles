@@ -37,7 +37,7 @@ ebay     = S.searchEngine "ebay" "https://www.ebay.com/sch/i.html?_nkw="
 news     = S.searchEngine "news" "https://news.google.com/search?q="
 reddit   = S.searchEngine "reddit" "https://www.reddit.com/search/?q="
 urban    = S.searchEngine "urban" "https://www.urbandictionary.com/define.php?term="
-
+nixos    = S.searchEngine "nixos" "https://search.nixos.org/packages"
 -- This is the list of search engines that I want to use. Some are from
 -- XMonad.Actions.Search, and some are the ones that I added above.
 searchList :: [(String, S.SearchEngine)]

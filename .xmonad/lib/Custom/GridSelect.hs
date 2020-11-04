@@ -23,4 +23,5 @@ myList :: [(String,String)]
 myList = [("Shift+Return  Main menu","")
          ,("Shift+Tab     Main menu","")
          ,("Alt+Return    Exec terminal","")
+	 ,("Mod4+2        Screenshot",""   )
          ]

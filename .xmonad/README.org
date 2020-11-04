@@ -3,7 +3,7 @@
 #+DESCRIPTION: My xmonad config
 #+AUTHOR: Vamshi krishna
 
-[[file:/home/vamshi/2020-10-30-161902_1920x1080_scrot.png]]
+[[/home/vamshi/2020-10-30-161902_1920x1080_scrot.png]]
 * IMPORTS
 Imports of various libraries from custom, xmoand, xmonad-contrib, base
 #+BEGIN_SRC haskell

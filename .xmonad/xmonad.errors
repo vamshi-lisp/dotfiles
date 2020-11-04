@@ -1,14 +1,50 @@
 
-lib/Custom/MyAutoStart.hs:20:1: warning: [-Wtabs]
-    Tab character found here, and in two further locations.
-    Please use spaces instead.
-   |
-20 |           spawnOnce "status-notifier-watcher &"
-   | ^^^^^^^^
+lib/Custom/Layouts.hs:6:1: error:
+    Could not find module ‘XMonad’
+    Perhaps you meant DsMonad (needs flag -package-key ghc-8.6.5)
+    Use -v to see a list of the files searched for.
+  |
+6 | import XMonad
+  | ^^^^^^^^^^^^^
 
-xmonad.hs:80:1: warning: [-Wtabs]
-    Tab character found here, and in 47 further locations.
-    Please use spaces instead.
+lib/Custom/Layouts.hs:9:1: error:
+    Could not find module ‘XMonad.Layout.BinarySpacePartition’
+    Use -v to see a list of the files searched for.
+  |
+9 | import XMonad.Layout.BinarySpacePartition (emptyBSP)
+  | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+lib/Custom/Layouts.hs:10:1: error:
+    Could not find module ‘XMonad.Layout.NoBorders’
+    Use -v to see a list of the files searched for.
    |
-80 |         $ pagerHints
-   | ^^^^^^^^
+10 | import XMonad.Layout.NoBorders (noBorders)
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+lib/Custom/Layouts.hs:11:1: error:
+    Could not find module ‘XMonad.Layout.ToggleLayouts’
+    Use -v to see a list of the files searched for.
+   |
+11 | import XMonad.Layout.ToggleLayouts ( toggleLayouts)
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+lib/Custom/Layouts.hs:12:1: error:
+    Could not find module ‘XMonad.Layout.ResizableTile’
+    Use -v to see a list of the files searched for.
+   |
+12 | import XMonad.Layout.ResizableTile (ResizableTall(..))
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+lib/Custom/Layouts.hs:13:1: error:
+    Could not find module ‘XMonad.Layout.Spiral’
+    Use -v to see a list of the files searched for.
+   |
+13 | import XMonad.Layout.Spiral
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+lib/Custom/Layouts.hs:16:1: error:
+    Could not find module ‘XMonad.Hooks.ManageDocks’
+    Use -v to see a list of the files searched for.
+   |
+16 | import XMonad.Hooks.ManageDocks (avoidStruts) --, docksEventHook, manageDocks,ToggleStruts(..))
+   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
